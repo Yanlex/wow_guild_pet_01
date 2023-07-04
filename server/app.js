@@ -12,6 +12,7 @@ const compiler = webpack(config);
 const guildData = require('./db/components/fetchGuild/fetchGuild.js');
 
 
+
 // работа с БД
 const dbPath = path.resolve(__dirname, './db/guild.db');
 const sqlite3 = require('sqlite3').verbose();
@@ -24,6 +25,11 @@ app.use(cors());
 
 // Middleware for serving static files from public directory
 app.use(express.static(path.join(__dirname, '../dist')));
+
+// Устанавливаем путь к папке, содержащей изображения аватарок игровых персонажей
+app.use('/avatar', express.static(path.join(__dirname, './assets/img')));
+// Endpoint для отдачи изображений
+
 
 // получаем данные гильдии с raider.io
 app.get('/guild-data', async (req, res) => {
@@ -43,8 +49,6 @@ app.get('/guild-data', async (req, res) => {
     }
   });
 });
-
-
 
 // Вывод одного игрока
 app.get('/member/:name', async (req, res) => {

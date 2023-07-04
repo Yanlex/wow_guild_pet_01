@@ -4,8 +4,14 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 module.exports = {
   entry: path.resolve(__dirname, "src/index.jsx"),
-  devtool: "inline-source-map",
-  mode: 'development',
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    filename: '[name].bundle.js',
+    assetModuleFilename: "assets/img/[name][ext]",
+    clean: true,
+  },
+  devtool: "inline-source-map", // devtool: 'inline-source-map' выключать если продакшн!!!
+  mode: 'development', // production or development не забыть выключить new ReactRefreshWebpackPlugin() и devtool: "inline-source-map"
   module: {
     rules: [
       {
@@ -43,18 +49,14 @@ module.exports = {
   resolve: {
     extensions: ["", ".js", ".jsx", "tsx", ".es6"]
   },
-  output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: '[name].bundle.js',
-    clean: true,
-  },
+
   plugins: [
     new HtmlWebpackPlugin({
       title: 'webpack Boilerplate',
       template: path.resolve(__dirname, './src/template.html'), // шаблон
       filename: 'index.html', // название выходного файла
     }),
-    new ReactRefreshWebpackPlugin(),
+    new ReactRefreshWebpackPlugin(), // new ReactRefreshWebpackPlugin() ВЫКЛЮЧИТЬ ЕСЛИ ПРОДАКШН
   ],
   devServer: {
     static: path.resolve(__dirname, "dist"),
