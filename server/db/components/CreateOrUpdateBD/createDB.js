@@ -1,6 +1,6 @@
-const guildData = require('../../fetchGuild/fetchGuild');
+const guildData = require('../fetchGuild/fetchGuild');
 const path = require('path');
-const dbPath = path.resolve(__dirname, '../guild.db');
+const dbPath = path.resolve(__dirname, '../../guild.db');
 
 
 

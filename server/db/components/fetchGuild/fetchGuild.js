@@ -19,6 +19,16 @@ async function getPlayerMythicPlus(name) {
   }
 }
 
-module.exports = { getPlayerMythicPlus, getGuildData };
+async function getPlayerGuild(name) {
+  try {
+    const response = await axios.get(`https://raider.io/api/v1/characters/profile?region=eu&realm=howling-fjord&name=${name}&fields=guild`);
+    return response.data
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+module.exports = { getPlayerMythicPlus, getGuildData, getPlayerGuild };
 
 

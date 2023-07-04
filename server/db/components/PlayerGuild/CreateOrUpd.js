@@ -2,16 +2,16 @@ const sqlite3 = require('sqlite3').verbose();
 const https = require('https');
 const path = require('path');
 
-const dbPath = path.resolve(__dirname, '../guild.db');
+const dbPath = path.resolve(__dirname, '../../guild.db');
 
-const INTERVAL_DELAY = 340; // интервал чтобы не превысить количество запросов к апи
+const INTERVAL_DELAY = 1000; // интервал чтобы не превысить количество запросов к апи
 
 const db = new sqlite3.Database(dbPath);
 
 db.serialize(async function () {
-  // Проверяем, есть ли столбец mythic_plus_score в таблице members
+  // Проверяем, есть ли столбец player_guild в таблице members
   const row = await new Promise((resolve, reject) => {
-    db.get(`SELECT COUNT(*) as cnt FROM sqlite_master WHERE name='members' and type='table' and sql LIKE '%mythic_plus_score%'`, (err, row) => {
+    db.get(`SELECT COUNT(*) as cnt FROM sqlite_master WHERE name='members' and type='table' and sql LIKE '%player_guild%'`, (err, row) => {
       if (err) {
         reject(err);
       } else {
@@ -23,20 +23,20 @@ db.serialize(async function () {
   if (row.cnt === 0) {
     // Если столбца нет, создаем его
     await new Promise((resolve, reject) => {
-      db.run('ALTER TABLE members ADD COLUMN mythic_plus_score INTEGER', (err) => {
+      db.run('ALTER TABLE members ADD COLUMN player_guild TEXT', (err) => {
         if (err) {
           reject(err);
         } else {
-          console.log("Столбец mythic_plus_score успешно создан");
+          console.log("Столбец player_guild успешно создан");
           resolve();
         }
       });
     });
   }
 
-  // Получаем список персонажей, у которых нет значения mythic_plus_score
+  // Получаем список персонажей
   const rows = await new Promise((resolve, reject) => {
-    db.all('SELECT character_name FROM members WHERE mythic_plus_score IS NULL', (err, rows) => {
+    db.all('SELECT character_name FROM members', (err, rows) => {
       if (err) {
         reject(err);
       } else {
@@ -45,7 +45,7 @@ db.serialize(async function () {
     });
   });
 
-  // Проходим по списку персонажей и обновляем значения mythic_plus_score
+  // Проходим по списку персонажей и обновляем значения player_guild
   let i = 0;
   const interval = setInterval(() => {
     if (i >= rows.length) {
@@ -55,7 +55,7 @@ db.serialize(async function () {
     }
 
     const name = rows[i].character_name;
-    const url = `https://raider.io/api/v1/characters/profile?region=eu&realm=howling-fjord&name=${name}&fields=mythic_plus_scores_by_season%3Acurrent`;
+    const url = `https://raider.io/api/v1/characters/profile?region=eu&realm=howling-fjord&name=${name}&fields=guild`;
 
     https.get(url, (res) => {
       let data = '';
@@ -66,13 +66,15 @@ db.serialize(async function () {
 
       res.on('end', () => {
         const result = JSON.parse(data);
-        const score = result.mythic_plus_scores_by_season[0].scores.all;
+        const score = result.guild && result.guild.name !== null ? result.guild.name : "Bomj";
 
-        db.run(`UPDATE members SET mythic_plus_score = ${score} WHERE character_name = '${name}'`, (err) => {
+        db.run(`UPDATE members SET player_guild = '${score}' WHERE character_name = '${name}'`, (err) => {
           if (err) {
+            console.log(result)
+            console.log(score)
             console.error(err.message);
           } else {
-            console.log(`Строка с ником ${name} успешно обновлена`);
+            console.log(`Строка с ником ${name} успешно обновлена player_guild`);
           }
         });
 

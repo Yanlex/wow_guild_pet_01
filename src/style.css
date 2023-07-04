@@ -1,9 +1,61 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
-.hello {
-  color: red;
+@import url('https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Caprasimo&family=Oswald:wght@200;300;400;500&family=Poppins:wght@400;500;600;700;900&display=swap');
+
+body {
+  background-color: #fff;
+  color: #fff;
+  font-family: Oswald, Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
 }
+
+h2 {
+  font-weight: 500;
+  line-height: 25px;
+}
+
+.container {
+  max-width: 1280px;
+  margin: auto;
+}
+
+.cards {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  row-gap: 10px;
+}
+
+.card-item {
+  flex-basis: 240px;
+  min-height: 90px;
+  flex-shrink: 0;
+  display: flex;
+  background-color: #403d39;
+  outline: 2px solid #e9ecef;
+  -webkit-border-top-right-radius: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-bottomright: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.card-item-div {
+  display: flex;
+  flex-direction: column;
+  line-height: 20px;
+  margin-left: 10px;
+}
+
+.card-item:hover {
+  background-color: #252422;
+}
+
+.card-item-img {}
