@@ -7,7 +7,7 @@
 
 body {
   background-color: #fff;
-  color: #fff;
+  color: #000;
   font-family: Oswald, Arial, Helvetica, sans-serif;
   font-weight: 400;
   font-size: 14px;
@@ -21,6 +21,13 @@ h2 {
 .container {
   max-width: 1280px;
   margin: auto;
+  padding-top: 10px;
+}
+
+.content {}
+
+.header {
+  margin-left: 10px;
 }
 
 .cards {
@@ -30,6 +37,7 @@ h2 {
   flex-wrap: wrap;
   justify-content: space-around;
   row-gap: 10px;
+  color: #fff;
 }
 
 .card-item {
@@ -59,3 +67,66 @@ h2 {
 }
 
 .card-item-img {}
+
+/* fixed inset-0 flex items-center justify-center  */
+
+.dialogMain {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialogMain-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.button {
+  background-color: #3182ce;
+  color: #fff;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.button:hover {
+  background-color: #3122ce;
+}
+
+
+input {
+  padding: 0.5rem;
+  border: 2px solid #3182ce;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+.regForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+}
+
+.header div {
+  margin-right: 10px;
+}
+
+.green {
+  color: green;
+}

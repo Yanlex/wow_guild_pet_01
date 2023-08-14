@@ -3,39 +3,53 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const path = require('path');
 const config = require('../webpack.config.js');
-
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
 const app = express();
 const compiler = webpack(config);
+require('dotenv').config()
+
+secretKey = process.env.JWT_SECRET
+
 const guildData = require('./db/components/fetchGuild/fetchGuild.js');
 
-
-
 // работа с БД
-const dbPath = path.resolve(__dirname, './db/guild.db');
 const sqlite3 = require('sqlite3').verbose();
+const dbPath = path.resolve(__dirname, './db/guild.db');
 const db = new sqlite3.Database(dbPath);
 
-
 app.use(bodyParser.json({ limit: '10mb' }));
-app.use(bodyParser.json());
+
 app.use(cors());
 
-// Middleware for serving static files from public directory
+app.use(express.urlencoded({ extended: true }));
+
+// Фронт
 app.use(express.static(path.join(__dirname, '../dist')));
 
 // Устанавливаем путь к папке, содержащей изображения аватарок игровых персонажей
 app.use('/avatar', express.static(path.join(__dirname, './assets/img')));
 // Endpoint для отдачи изображений
 
+// Регистрация юзера в БД
+const registerUser = require('./components/Registation/index.js');
+app.post('/register', (req, res) => {
+  registerUser(req, res);
+});
 
-// получаем данные гильдии с raider.io
+// Апи к БД
+app.use('/createrowdb/:name/:type', require('./db/components/CreateOrUpdateBD/createRowDb.js'));
+app.use('/removerowdb/:name', require('./db/components/CreateOrUpdateBD/removeRowDb.js'));
+app.get('/update-mplus-score', require('./db/components/MythicPlusCreateOrUpdate/updateMPlusScore.js'));
+
+// Авторизация
+app.use('/login', require('./components/Login/index.js'));
+
+app.post('/auth', require('./db/components/Authorization/index.js'))
+
+
+// Вывод всех строк из таблицы members
 app.get('/guild-data', async (req, res) => {
-  // const data = await guildData.getGuildData();
-  // res.send(data)
-
   // Выполняем SQL-запрос к базе данных
   db.all('SELECT * FROM members', (err, rows) => {
     if (err) {
@@ -50,27 +64,12 @@ app.get('/guild-data', async (req, res) => {
   });
 });
 
-// Вывод одного игрока
+// Вывод одного игрока, делает запрос к api raider io
 app.get('/member/:name', async (req, res) => {
   const name = req.params.name
   const data = await guildData.getPlayerMythicPlus(name)
   res.send(data)
 })
-
-// Вывод всех игроков
-app.get('/members', (req, res) => {
-
-  let sql = `SELECT guild_id, rank, character_name, race, class, active_spec_name, active_spec_role, gender, faction, achievement_points, honorable_kills, region, realm, last_crawled_at, profile_url, profile_banner FROM members`;
-
-  db.all(sql, [], (err, rows) => {
-    if (err) {
-      throw err;
-    }
-    const characterNames = rows.map((row) => ({ character_name: row.character_name, class: row.class }))
-    res.send(characterNames);
-
-  });
-});
 
 // Webpack dev middleware
 app.use(webpackDevMiddleware(compiler, {

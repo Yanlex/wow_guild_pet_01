@@ -3,11 +3,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, "src/index.jsx"),
+  entry: {
+    index: path.resolve(__dirname, 'src/index.jsx'),
+    another: path.resolve(__dirname, 'src/RaiderIoApi.jsx'),
+    additional: path.resolve(__dirname, 'src/rioColors.js')
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: '[name].bundle.js',
-    assetModuleFilename: "assets/img/[name][ext]",
+    // assetModuleFilename: "assets/img/[name][ext]",
     clean: true,
   },
   devtool: "inline-source-map", // devtool: 'inline-source-map' выключать если продакшн!!!

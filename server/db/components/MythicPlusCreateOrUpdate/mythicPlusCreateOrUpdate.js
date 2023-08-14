@@ -1,14 +1,13 @@
 const sqlite3 = require('sqlite3').verbose();
 const https = require('https');
 const path = require('path');
-
 const dbPath = path.resolve(__dirname, '../../guild.db');
-
 const INTERVAL_DELAY = 340; // интервал чтобы не превысить количество запросов к апи
-
 const db = new sqlite3.Database(dbPath);
 
 db.serialize(async function () {
+
+
   // Проверяем, есть ли столбец mythic_plus_score в таблице members
   const row = await new Promise((resolve, reject) => {
     db.get(`SELECT COUNT(*) as cnt FROM sqlite_master WHERE name='members' and type='table' and sql LIKE '%mythic_plus_score%'`, (err, row) => {
