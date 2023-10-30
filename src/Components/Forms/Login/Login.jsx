@@ -22,8 +22,9 @@ export default function LoginForm() {
           // Обработка успешного ответа от сервера
           response.json().then(data => {
             // Получаем текст ошибки из поля "error" в ответе сервера
-            const token = data.token || 'Ошибка при отправке данных';
-            Cookies.set('jwtToken', token, { expires: 1, path: '' });
+            // const token = data.token || 'Ошибка при отправке данных';
+            // console.log(data.value)
+            // Cookies.set('jwtToken', token, { expires: 1, path: '' }, { httpOnly: true });
             setMyCookie(true)
           });
         } else {

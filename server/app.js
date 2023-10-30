@@ -8,7 +8,7 @@ const cors = require('cors');
 const app = express();
 const compiler = webpack(config);
 require('dotenv').config()
-
+const cookieParser = require('cookie-parser')
 secretKey = process.env.JWT_SECRET
 
 const guildData = require('./db/components/fetchGuild/fetchGuild.js');
@@ -18,14 +18,43 @@ const sqlite3 = require('sqlite3').verbose();
 const dbPath = path.resolve(__dirname, './db/guild.db');
 const db = new sqlite3.Database(dbPath);
 
+
+// REDIS
+const redis = require("redis");
+
+let redisClient;
+
+(async () => {
+  redisClient = redis.createClient();
+
+  redisClient.on("error", (error) => console.error(`Error : ${error}`));
+
+  await redisClient.connect();
+})();
+
+//
+
 app.use(bodyParser.json({ limit: '10mb' }));
 
 app.use(cors());
+app.use(cookieParser())
 
 app.use(express.urlencoded({ extended: true }));
 
 // Фронт
 app.use(express.static(path.join(__dirname, '../dist')));
+
+app.post("/ttt", (req, res) => {
+  const { key, value } = req.body
+  redisClient.set('key', 'value', function (err, reply) {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log('Value set in Redis');
+    }
+  });
+  res.json('OK')
+})
 
 // Устанавливаем путь к папке, содержащей изображения аватарок игровых персонажей
 app.use('/avatar', express.static(path.join(__dirname, './assets/img')));
@@ -79,6 +108,21 @@ app.use(webpackDevMiddleware(compiler, {
 // Route for serving the index file
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '../dist', '../dist/index.html'));
+
+  // Cookies that have not been signed
+  console.log('Cookies: ', req.cookies.sesionUuid)
+  console.log('Hello')
+  // Cookies that have been signed
+  console.log('Signed Cookies: ', req.signedCookies)
+
+});
+
+app.get('/profile', (req, res) => {
+  const jwt = req.cookies.JWT;
+  const sessionid = req.cookies.SessionID;
+  res.send('Hi')
+  // Использование значения куки "user"
+  console.log(`Welcome, ${jwt} : ${sessionid} !`);
 });
 
 // Start the server

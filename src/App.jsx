@@ -12,28 +12,32 @@ export default function App() {
   const { myCookie, setMyCookie } = cookieState()
   const { myName, setMyName } = Username()
 
+  console.log(Cookies.get())
+
   useEffect(() => {
     const authCheck = async () => {
       const myCookies = Cookies.get();
       const token = myCookies.jwtToken;
+      if (token) {
+        const response = await fetch('http://localhost:3000/auth', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ token }) // Оберните токен в объект
+        });
 
-      const response = await fetch('http://localhost:3000/auth', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ token }) // Оберните токен в объект
-      });
+        const data = await response.json(); // Обработка результата запроса
+        if (data) {
+          Cookies.set('UserName', data.username, { expires: 1, path: '' })
+          setMyName(Cookies.get('UserName'))
+          setMyCookie(true)
+        } else {
+          setMyCookie(false)
+        }
+      };
+    }
 
-      const data = await response.json(); // Обработка результата запроса
-      if (data) {
-        Cookies.set('UserName', data.username, { expires: 1, path: '' })
-        setMyName(Cookies.get('UserName'))
-        setMyCookie(true)
-      } else {
-        setMyCookie(false)
-      }
-    };
     authCheck()
   }, [myCookie])
 
