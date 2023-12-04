@@ -1,34 +1,261 @@
-* {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Caprasimo&family=Oswald:wght@200;300;400;500&family=Poppins:wght@400;500;600;700;900&display=swap');
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
 
 body {
-  background-color: #fff;
-  color: #000;
-  font-family: Oswald, Arial, Helvetica, sans-serif;
+  line-height: 1;
+}
+
+
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+strong {
+  font-weight: 700;
+}
+
+:root {
+  --header-h1-size: 3rem;
+  --button-discrod-color: #3182ce;
+  --button-raiderio-color: #111111;
+  --button-warcraftlogs-color: #001520;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap');
+
+
+@import './Components/Header/css/header.css';
+@import './Components/Header/css/headerNavigatin.css';
+@import './Components/MplusTop/css/MplusTop.css';
+@import './Components/Footer/css/footer.css';
+@import './Components/AboutGuild/css/AboutGuild.css';
+@import './Components/Guides/css/Guides.css';
+@import './Components/Social/css/Social.css';
+@import './Components/OutProgress/css/OurProgress.css';
+
+body,
+html {
+  background-color: #170e09;
+  color: #fdfdfd;
+  font-family: 'Montserrat', 'Roboto', 'Open Sans', sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  line-height: 2.5;
 }
 
 h2 {
-  font-weight: 500;
-  line-height: 25px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  line-height: 2;
 }
+
+h3 {
+  font-size: 1.125rem;
+  font-weight: bold;
+  line-height: 1.75;
+}
+
+a {
+  text-decoration: none;
+  color: #e9ecef;
+}
+
+.display-none {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  max-width: 2400px;
+  width: 100%;
+  height: 100vh;
+  margin-inline: auto;
+  box-shadow: 0 0 50px rgba(11, 6, 4, .8), 0 0 100px rgba(11, 6, 4, .6), 0 0 500px rgba(11, 6, 4, .3);
+  position: relative;
+}
+
+[role=main] {
+  flex: 1;
+  background-image: url("http://localhost:3000/img/Pane-leather-gray-map.4f5e5cedac63202812029039fc0832f2.jpg");
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
 
 .container {
+  position: relative;
+  max-width: 1536px;
+  width: calc(100% - 2rem);
+  margin: 0 auto;
+  padding-block: 2rem 2rem;
+  flex-grow: 1;
+}
+
+.DivBlack {
+  height: 4px;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #000;
+  position: relative;
+  pointer-events: none;
+  align-self: flex-end;
+}
+
+.content {
   max-width: 1280px;
-  margin: auto;
-  padding-top: 10px;
+  margin: 0 auto;
 }
 
-.content {}
-
-.header {
-  margin-left: 10px;
-}
 
 .cards {
   margin-top: 10px;
@@ -66,29 +293,35 @@ h2 {
   background-color: #252422;
 }
 
-.card-item-img {}
 
 /* fixed inset-0 flex items-center justify-center  */
 
 .dialogMain {
-  height: 100vh;
-  width: 100vw;
+  height: 100dvh;
+  width: 100dvw;
   background-color: rgba(0, 0, 0, 0.4);
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9999;
 }
 
 .dialogMain-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #000;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
 }
 
 .button {
+  font-size: 18px;
+  line-height: 24px;
   background-color: #3182ce;
   color: #fff;
   font-weight: bold;
@@ -96,11 +329,20 @@ h2 {
   border-radius: 0.25rem;
   border: none;
   cursor: pointer;
-  margin-top: 5px;
+  font-family: 'Poppins', 'Montserrat', 'Roboto', 'Open Sans', sans-serif;
 }
+
 
 .button:hover {
   background-color: #3122ce;
+}
+
+.button__reg {
+  background-color: #B23300;
+}
+
+.button__reg:hover {
+  background-color: #c54918;
 }
 
 
@@ -118,15 +360,46 @@ input {
 
 }
 
-.header {
-  display: flex;
-  flex-direction: row;
-}
 
-.header div {
-  margin-right: 10px;
-}
 
 .green {
   color: green;
 }
+
+@media screen and (max-width: 430px) {}
+
+@media screen and (max-width: 640px) {
+  .main__header-progress {
+    flex-direction: column;
+  }
+
+  html,
+  body {
+    font-size: 13px;
+  }
+
+  .progressCard {
+    flex-basis: 140px;
+  }
+
+  .mplus__top {
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .topmplus__main {
+    align-items: normal;
+  }
+
+  .topmplus__main-ul {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 768px) {}
+
+@media screen and (max-width: 1024px) {}
+
+@media screen and (max-width: 1280px) {}
+
+@media screen and (max-width: 1536px) {}

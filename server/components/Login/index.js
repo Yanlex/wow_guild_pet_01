@@ -1,74 +1,31 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const path = require('path');
-const sqlite3 = require('sqlite3').verbose();
-require('dotenv').config()
+const redis = require('redis');
 const userdb = path.resolve(__dirname, '../../db/users.db');
 const { v4: uuidv4 } = require('uuid');
-const redis = require("redis");
 
+/// Подключаем редис
 let redisClient;
-
 (async () => {
-  redisClient = redis.createClient();
+	redisClient = redis.createClient();
 
-  redisClient.on("error", (error) => console.error(`Error : ${error}`));
+	redisClient.on('error', (error) => console.error(`Error : ${error}`));
 
-  await redisClient.connect();
+	await redisClient.connect();
 })();
 
+async function loginR(req, res) {
+	console.log(`Зашел в loginR`);
+	try {
+		const { name, password } = req.body;
+		const role = res.locals.role;
+		const username = name;
+	} catch (error) {
+		res.status(500).json({ error: 'Что-то пошло не так' });
+	} finally {
+		console.log('Вышел из loginR');
+	}
+}
 
-const loginRouter = express.Router();
-const users = new sqlite3.Database(userdb);
-
-const sesionUuid = `session_${uuidv4()}`
-
-
-loginRouter.post('/', async (req, res) => {
-
-  try {
-    const { name, password } = req.body;
-    users.get('SELECT * FROM users WHERE name = ?', [name], async (error, user) => {
-      secretKey = process.env.JWT_SECRET
-      const isPasswordValid = bcrypt.compareSync(password, user.password);
-      const token = jwt.sign({ username: user.name, userrole: user.role }, secretKey);
-      const role = user.role
-      const name = user.name
-      if (error) {
-        throw new Error('Ошибка при выполнении запроса');
-      }
-      if (!user) {
-        return res.status(401).json({ error: 'Неверный логин или пароль!' });
-      }
-
-      if (!isPasswordValid) {
-        return res.status(401).json({ error: 'Неверный логин или пароль' });
-      }
-      redisClient.set(sesionUuid, token, function (err, reply) {
-        if (err) {
-          console.error(err);
-        } else {
-          console.log('Value set in Redis');
-        }
-      });
-      // res.json({ token, role, name });
-      res
-        .cookie('JWT', token, {
-          httpOnly: true
-        }).cookie('SessionID', sesionUuid, {
-          httpOnly: true,
-
-        })
-        .status(200)
-        .json({ message: "JWT in successfully 😊 👌" });
-
-    });
-
-
-  } catch (error) {
-    res.status(500).json({ error: 'Что-то пошло не так' });
-  }
-});
-
-module.exports = loginRouter;
+module.exports = loginR;
