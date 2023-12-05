@@ -9,13 +9,12 @@ const app = express();
 const dotenv = require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
-
+const cron = require('node-cron');
 secretKey = process.env.JWT_SECRET;
 
 const sqlite3 = require('sqlite3').verbose();
 
 // работа с БД
-
 const dbPath = path.resolve(__dirname, './db/guild.db');
 const db = new sqlite3.Database(dbPath);
 
@@ -23,10 +22,29 @@ const db = new sqlite3.Database(dbPath);
 const redis = require('redis');
 const config = require('../webpack.config.js');
 const registerUser = require('./components/Registation/index.js');
-const { getPlayerMythicPlus } = require('./db/components/GuildDB/fetchGuild/fetchGuild.js');
 const loginR = require('./components/Login/index.js');
 const checkExistUser = require('./components/Login/checkExistUser.js');
 const session = require('./components/Login/session.js');
+const checkPlayerGuild = require('./db/components/GuildDB/PlayerGuild/ChackUpdatePlayerGuild.js');
+const updateGuildMemberList = require('./db/components/GuildDB/GuildMembers/index.js');
+const mythic_plus_score_dfs3 = require('./db/components/GuildDB/MythicPlusScoreUpdate/scoreUpdate.js');
+//checkPlayerGuild
+
+cron.schedule('* 06 * * *', checkPlayerGuild, {
+	scheduled: true,
+	timezone: 'Europe/Moscow',
+});
+
+// Обновляет данные гильдии ( саму гильдию и мемберов )
+cron.schedule('* 02 * * *', updateGuildMemberList, {
+	scheduled: true,
+	timezone: 'Europe/Moscow',
+});
+
+cron.schedule('* 04 * * *', mythic_plus_score_dfs3, {
+	scheduled: true,
+	timezone: 'Europe/Moscow',
+});
 
 const compiler = webpack(config);
 

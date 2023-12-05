@@ -58,6 +58,7 @@ function MplusTopList({ slice, olstart }: mtopslice) {
 	const filtredGuild = guildData.filter(
 		(member: { player_guild: string; class: string }) => member.player_guild === 'Ключик в дурку',
 	);
+	console.log(filtredGuild);
 	const topmplusgigachads = filtredGuild.slice(slice[0], slice[1]);
 	return (
 		<>
