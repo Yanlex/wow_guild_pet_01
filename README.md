@@ -22,14 +22,21 @@
 --- Преднастройка ---
 ->
 !!Стартовая точка информации по вашей гильдии
+
 /server/db/components/GuildDB/fetchGuild/fetchGuild.js
+
 ->
 node createDB.js // создаем БД гильдии + мемберы
+
 node UsersDB/index.js // создаем БД зарегестрированных юзеров
+
 node GuildMembers/index.js // Заполняет и обновляет данные гильдии, чтобы выполнить этот файл нужно закомментировать cron.schedule в app.js и добавить вызов функции в самом файле
+
 node MythicPlusScoreUpdate/scoreUpdate.js // обновляет м+ рейтинг в бд , чтобы выполнить этот файл нужно закомментировать cron.schedule в app.js и добавить вызов функции в самом файле
 
 ---- Первый запуск ----
 resid-server
+
 npm run server
+
 npm run dev
