@@ -8,6 +8,7 @@ const cors = require('cors');
 const app = express();
 const dotenv = require('dotenv').config();
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 secretKey = process.env.JWT_SECRET;
 
@@ -44,6 +45,7 @@ app.use(bodyParser.json({ limit: '10mb' }));
 app.use(cors({ credentials: true }));
 app.use(cookieParser('4emoDz470fo8RSDPF0ymoVaPFhfpCXHt'));
 app.use(express.urlencoded({ extended: true }));
+app.use(compression());
 // Фронт
 app.use(express.static(path.join(__dirname, '../dist')));
 // Устанавливаем путь к папке, содержащей изображения аватарок игровых персонажей
@@ -72,6 +74,18 @@ app.use(
 
 app.post('/register', (req, res) => {
 	registerUser(req, res);
+});
+
+app.get('/clear-cookie', (request, response) => {
+	let options = {
+		maxAge: 1704085200, // would expire after 15 minutes
+		httpOnly: true, // The cookie only accessible by the web server
+		signed: true, // Indicates if the cookie should be signed
+	};
+	console.log(`clear-cookie`);
+	response.clearCookie('User', options);
+	response.clearCookie('SessionID', options);
+	response.end(); // Отправка ответа
 });
 
 // Обработчик авторизации пользователя

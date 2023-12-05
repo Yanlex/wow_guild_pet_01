@@ -14,8 +14,8 @@ module.exports = {
 		// assetModuleFilename: "assets/img/[name][ext]",
 		clean: true,
 	},
-	// devtool: 'inline-source-map', // devtool: 'inline-source-map' выключать если продакшн!!!
-	mode: 'production', // production or development не забыть выключить new ReactRefreshWebpackPlugin() и devtool: "inline-source-map"
+	devtool: 'inline-source-map', // devtool: 'inline-source-map' выключать если продакшн!!!
+	mode: 'development', // production or development не забыть выключить new ReactRefreshWebpackPlugin() и devtool: "inline-source-map"
 	module: {
 		rules: [
 			{
@@ -60,7 +60,7 @@ module.exports = {
 			template: path.resolve(__dirname, './src/template.html'), // шаблон
 			filename: 'index.html', // название выходного файла
 		}),
-		// new ReactRefreshWebpackPlugin(), // new ReactRefreshWebpackPlugin() ВЫКЛЮЧИТЬ ЕСЛИ ПРОДАКШН
+		new ReactRefreshWebpackPlugin(), // new ReactRefreshWebpackPlugin() ВЫКЛЮЧИТЬ ЕСЛИ ПРОДАКШН
 	],
 	devServer: {
 		static: path.resolve(__dirname, 'dist'),

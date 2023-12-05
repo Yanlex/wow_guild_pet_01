@@ -1,12 +1,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import AuthContext from '../../../AuthContext';
 
 export default function LoginForm({ handleClose }) {
+	const { login } = useContext(AuthContext);
 	const { register, handleSubmit } = useForm();
 	const [status, setStatus] = useState(null);
+	// Сохранение состояния в LocalStorage
 
-	const onSubmit = (data) => {
+	const onSubmit = (data: any) => {
 		fetch('http://localhost:3000/login', {
 			method: 'POST',
 			headers: {
@@ -16,6 +19,7 @@ export default function LoginForm({ handleClose }) {
 		})
 			.then((response) => {
 				if (response.ok) {
+					login();
 					setTimeout(() => {
 						handleClose();
 					}, 1000);

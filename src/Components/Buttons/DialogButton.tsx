@@ -11,10 +11,10 @@ type dialogProps = {
 function DialogButton(props: dialogProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const { buttonText, formTitle, childComponent, addStyle } = props;
-	const handleOpen = () => {
+	const handleOpen: () => void = () => {
 		setIsOpen(true);
 	};
-	const handleClose = () => {
+	const handleClose: () => void = () => {
 		setIsOpen(false);
 	};
 	return (

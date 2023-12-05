@@ -40,7 +40,7 @@
 
 .header__nav_ul {
   display: flex;
-  gap: 20px;
+  gap: 1rem;
 }
 
 .header__nav_ul li {
@@ -57,6 +57,7 @@
 .header__navigation_login {
   display: flex;
   gap: 1rem;
+  align-items: center;
 }
 
 @media screen and (max-width: 280px) {
