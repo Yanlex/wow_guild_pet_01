@@ -11,7 +11,7 @@ export default function RegistrationForm() {
 	});
 	const [status, setStatus] = useState(null);
 	const onSubmit = (data: string[]) => {
-		fetch('http://localhost:3000/register', {
+		fetch(`${process.env.BASE_API_URL}/register`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

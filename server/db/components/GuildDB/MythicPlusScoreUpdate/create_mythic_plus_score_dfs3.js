@@ -1,5 +1,4 @@
 const sqlite3 = require('sqlite3').verbose();
-const https = require('https');
 const path = require('path');
 
 const dbPath = path.resolve(__dirname, '../../../guild.db');

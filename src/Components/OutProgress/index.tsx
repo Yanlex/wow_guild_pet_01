@@ -58,7 +58,7 @@ export default function OurProgress({ PathDisplay }: PageProps) {
 						{guildProgress.raid_progression['amirdrassil-the-dreams-hope'].total_bosses}
 					</li>
 				</ul>
-				<img src="http://localhost:3000/img/6K6Z89WII3L01693945700775.avif" alt="" />
+				<img src={`${process.env.BASE_API_URL}/img/6K6Z89WII3L01693945700775.avif`} alt="" />
 			</div>
 			<div className="progressCard">
 				<h3>Аберрий, Затененное Горнило</h3>
@@ -82,7 +82,7 @@ export default function OurProgress({ PathDisplay }: PageProps) {
 						{guildProgress.raid_progression['aberrus-the-shadowed-crucible'].total_bosses}
 					</li>
 				</ul>
-				<img src="http://localhost:3000/img/FpaAUhx.jpg" alt="" />
+				<img src={`${process.env.BASE_API_URL}/img/FpaAUhx.jpg`} alt="" />
 			</div>
 			<div className="progressCard">
 				<h3>Хранилище Воплощений</h3>
@@ -104,7 +104,7 @@ export default function OurProgress({ PathDisplay }: PageProps) {
 					</li>
 				</ul>
 				<img
-					src="http://localhost:3000/img/Raid-Finder-Wing-2-Vault-of-the-Incarnates.jpg"
+					src={`${process.env.BASE_API_URL}/img/Raid-Finder-Wing-2-Vault-of-the-Incarnates.jpg`}
 					alt=""
 				/>
 			</div>

@@ -1,37 +1,13 @@
 const sqlite3 = require('sqlite3').verbose();
 const https = require('https');
 const path = require('path');
+
 const dbPath = path.resolve(__dirname, '../../../guild.db');
 const INTERVAL_DELAY = 1000; // интервал чтобы не превысить количество запросов к апи
 const db = new sqlite3.Database(dbPath);
 
 function checkPlayerGuild() {
-	db.serialize(async function () {
-		// Проверяем, есть ли столбец player_guild в таблице members
-		// const row = await new Promise((resolve, reject) => {
-		//   db.get(`SELECT COUNT(*) as cnt FROM sqlite_master WHERE name='members' and type='table' and sql LIKE '%player_guild%'`, (err, row) => {
-		//     if (err) {
-		//       reject(err);
-		//     } else {
-		//       resolve(row);
-		//     }
-		//   });
-		// });
-
-		// if (row.cnt === 0) {
-		//   // Если столбца нет, создаем его
-		//   await new Promise((resolve, reject) => {
-		//     db.run('ALTER TABLE members ADD COLUMN player_guild TEXT', (err) => {
-		//       if (err) {
-		//         reject(err);
-		//       } else {
-		//         console.log("Столбец player_guild успешно создан");
-		//         resolve();
-		//       }
-		//     });
-		//   });
-		// }
-
+	db.serialize(async () => {
 		// Получаем список персонажей
 		const rows = await new Promise((resolve, reject) => {
 			db.all('SELECT character_name FROM members', (err, rows) => {

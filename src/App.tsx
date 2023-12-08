@@ -1,12 +1,12 @@
 /* eslint-disable import/no-unresolved */
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Page from './Components/Page/Page';
-import Header from './Components/Header/Header';
-import Footer from './Components/Footer/Footer';
-import MplusTop from './Components/MplusTop/MplusTop';
-import AboutGuild from './Components/AboutGuild/AboutGuild';
-import Guides from './Components/Guides/Guides';
+import Page from './Components/Page';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
+import MplusTop from './Components/MplusTop';
+import AboutGuild from './Components/AboutGuild';
+import Guides from './Components/Guides';
 
 export default function App() {
 	const homePageTitle = (
@@ -16,24 +16,6 @@ export default function App() {
 			настоящих семи-хардкорных игроков.
 		</p>
 	);
-
-	const [data, setData] = useState(null);
-
-	useEffect(() => {
-		const authCheck = async () => {
-			const response = await fetch('http://localhost:3000/redis', {
-				credentials: 'same-origin',
-				method: 'GET',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-				},
-			});
-			const data = await response.json();
-		};
-		authCheck();
-	}, []);
-
 	return (
 		<BrowserRouter>
 			<Routes>

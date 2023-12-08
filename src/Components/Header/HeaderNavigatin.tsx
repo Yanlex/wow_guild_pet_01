@@ -1,15 +1,15 @@
 /* eslint-disable import/no-unresolved */
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import DialogButton from '../Buttons/DialogButton';
-import LoginForm from '../Forms/Login/Login';
-import RegistrationForm from '../Forms/Registration/Registration';
-import AuthContext from '../../AuthContext';
 import Cookies from 'js-cookie';
+import LoginForm from '../Forms/Login';
+import AuthContext from '../AuthState/AuthContext';
+import RegistrationForm from '../Forms/Registration';
+import DialogButton from '../Buttons';
 
 export default function HeaderNavigation() {
 	const userName = Cookies.get('User');
-	const { isAuthenticated, login, logout } = useContext(AuthContext);
+	const { isAuthenticated, logout } = useContext(AuthContext);
 	return (
 		<div className="header__auth_menu">
 			<nav className="header__nav_main">

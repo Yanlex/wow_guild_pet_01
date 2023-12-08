@@ -11,7 +11,7 @@ function MplusTopList({ slice, olstart }: mtopslice) {
 	const id = uuidv4();
 
 	function fetchData() {
-		fetch('http://localhost:3000/guild-data')
+		fetch(`${process.env.BASE_API_URL}/guild-data`)
 			.then((response) => {
 				if (!response.ok) {
 					throw new Error('Network response was not ok');
@@ -58,7 +58,6 @@ function MplusTopList({ slice, olstart }: mtopslice) {
 	const filtredGuild = guildData.filter(
 		(member: { player_guild: string; class: string }) => member.player_guild === 'Ключик в дурку',
 	);
-	console.log(filtredGuild);
 	const topmplusgigachads = filtredGuild.slice(slice[0], slice[1]);
 	return (
 		<>
@@ -75,7 +74,7 @@ function MplusTopList({ slice, olstart }: mtopslice) {
 						}) => (
 							<li key={id} className="topmplus__row">
 								<img
-									src={`http://localhost:3000/class/${classIcons[member.class]}.jpg`}
+									src={`${process.env.BASE_API_URL}/class/${classIcons[member.class]}.jpg`}
 									alt=""
 									className="topmplus__classicon"
 								/>

@@ -5,7 +5,7 @@ function FetchGuild() {
 	const [guildData, setGuildData] = useState(null);
 
 	function fetchData() {
-		fetch('http://localhost:3000/guild-data')
+		fetch(`${process.env.BASE_API_URL}/guild-data`)
 			.then((response) => {
 				if (!response.ok) {
 					throw new Error('Network response was not ok');
@@ -67,7 +67,7 @@ function FetchGuild() {
 				.map((member) => (
 					<div key={member.id} className="card-item">
 						<img
-							src={`http://localhost:3000/avatars/${member.character_name}.jpg`}
+							src={`/avatars/${member.character_name}.jpg`}
 							className="card-item-img"
 						/>
 						<div className="card-item-div">

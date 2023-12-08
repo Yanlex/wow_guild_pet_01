@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import AuthContext from '../../../AuthContext';
+import AuthContext from 'src/Components/AuthState/AuthContext';
 
 export default function LoginForm({ handleClose }) {
 	const { login } = useContext(AuthContext);
@@ -10,7 +10,7 @@ export default function LoginForm({ handleClose }) {
 	// Сохранение состояния в LocalStorage
 
 	const onSubmit = (data: any) => {
-		fetch('http://localhost:3000/login', {
+		fetch(`${process.env.BASE_API_URL}/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -67,27 +67,24 @@ export default function LoginForm({ handleClose }) {
 				setStatus(`Ошибка при отправке данных! ${error}`);
 			});
 	};
-
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className="regForm">
-			<>
-				<input
-					type="text"
-					autoComplete="off"
-					{...register('name', { required: true, maxLength: 20 })}
-					placeholder="Юзернейм"
-				/>
-				<input
-					type="password"
-					autoComplete="off"
-					{...register('password', {
-						required: 'required',
-					})}
-					placeholder="Пароль"
-				/>
-				<input type="submit" className="button" value="Войти" />
-				{status}
-			</>
+			<input
+				type="text"
+				autoComplete="off"
+				{...register('name', { required: true, maxLength: 20 })}
+				placeholder="Юзернейм"
+			/>
+			<input
+				type="password"
+				autoComplete="off"
+				{...register('password', {
+					required: 'required',
+				})}
+				placeholder="Пароль"
+			/>
+			<input type="submit" className="button" value="Войти" />
+			{status}
 		</form>
 	);
 }

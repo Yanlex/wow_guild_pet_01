@@ -10,7 +10,7 @@ const dotenv = require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const cron = require('node-cron');
-secretKey = process.env.JWT_SECRET;
+const cookieSecret = process.env.COOKIE_SECRET;
 
 const sqlite3 = require('sqlite3').verbose();
 
@@ -18,17 +18,18 @@ const sqlite3 = require('sqlite3').verbose();
 const dbPath = path.resolve(__dirname, './db/guild.db');
 const db = new sqlite3.Database(dbPath);
 
-// REDIS
+// REDIS ../webpack.config.js
 const redis = require('redis');
-const config = require('../webpack.config.js');
-const registerUser = require('./components/Registation/index.js');
-const loginR = require('./components/Login/index.js');
-const checkExistUser = require('./components/Login/checkExistUser.js');
-const session = require('./components/Login/session.js');
-const checkPlayerGuild = require('./db/components/GuildDB/PlayerGuild/ChackUpdatePlayerGuild.js');
-const updateGuildMemberList = require('./db/components/GuildDB/GuildMembers/index.js');
-const mythic_plus_score_dfs3 = require('./db/components/GuildDB/MythicPlusScoreUpdate/scoreUpdate.js');
-//checkPlayerGuild
+const config = require('../webpack.config');
+const registerUser = require('./components/Registation/index');
+const loginR = require('./components/Login/index');
+const checkExistUser = require('./components/Login/checkExistUser');
+const session = require('./components/Login/session');
+const checkPlayerGuild = require('./db/components/GuildDB/PlayerGuild/index');
+const updateGuildMemberList = require('./db/components/GuildDB/GuildMembers/index');
+const mythic_plus_score_dfs3 = require('./db/components/GuildDB/MythicPlusScoreUpdate/scoreUpdate');
+const { getPlayerMythicPlus } = require('./db/components/GuildDB/fetchGuild');
+// checkPlayerGuild
 
 cron.schedule('* 06 * * *', checkPlayerGuild, {
 	scheduled: true,
@@ -61,7 +62,7 @@ let redisClient;
 // *** APP USE *** ///
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(cors({ credentials: true }));
-app.use(cookieParser('4emoDz470fo8RSDPF0ymoVaPFhfpCXHt'));
+app.use(cookieParser(cookieSecret));
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 // Фронт
@@ -75,8 +76,8 @@ app.use('/class', express.static(path.join(__dirname, './assets/class')));
 // Устанавливаем путь к папке, содержащей изображения аватарок игровых персонажей
 app.use('/video', express.static(path.join(__dirname, './assets/video')));
 // Апи к БД
-app.use('/createrowdb/:name/:type', require('./db/components/CreateOrUpdateBD/createRowDb.js'));
-app.use('/removerowdb/:name', require('./db/components/CreateOrUpdateBD/removeRowDb.js'));
+// app.use('/createrowdb/:name/:type', require('./db/components/CreateOrUpdateBD/createRowDb'));
+// app.use('/removerowdb/:name', require('./db/components/CreateOrUpdateBD/removeRowDb'));
 // app.get('/update-mplus-score', require('./db/components/GuildDB/MythicPlusCreateOrUpdate/updateMPlusScore.js'));
 app.use((err, req, res, next) => {
 	console.error(err.stack);
@@ -95,12 +96,11 @@ app.post('/register', (req, res) => {
 });
 
 app.get('/clear-cookie', (request, response) => {
-	let options = {
+	const options = {
 		maxAge: 1704085200, // would expire after 15 minutes
 		httpOnly: true, // The cookie only accessible by the web server
 		signed: true, // Indicates if the cookie should be signed
 	};
-	console.log(`clear-cookie`);
 	response.clearCookie('User', options);
 	response.clearCookie('SessionID', options);
 	response.end(); // Отправка ответа

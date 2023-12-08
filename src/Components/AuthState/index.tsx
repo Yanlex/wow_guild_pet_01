@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import AuthContext from './AuthContext';
 
-const AuthProvider = ({ children }) => {
+function AuthProvider({ children }) {
 	function handleLogout() {
 		fetch('/clear-cookie', {
 			method: 'GET',
-			credentials: 'include', // <--- YOU NEED THIS LINE
+			credentials: 'include',
 		})
 			.then((response) => {
 				if (response.redirected) {
@@ -34,12 +34,8 @@ const AuthProvider = ({ children }) => {
 		localStorage.clear();
 		handleLogout();
 	};
-
-	return (
-		<AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-			{children}
-		</AuthContext.Provider>
-	);
-};
+	const authState = useMemo(() => ({ isAuthenticated, login, logout }), []);
+	return <AuthContext.Provider value={authState}>{children}</AuthContext.Provider>;
+}
 
 export default AuthProvider;

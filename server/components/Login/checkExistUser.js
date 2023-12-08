@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const sqlite3 = require('sqlite3').verbose();
 const userdb = path.resolve(__dirname, '../../db/users.db');
-require('dotenv').config();
+const dotenv = require('dotenv').config();
 const users = new sqlite3.Database(userdb);
 // Сверяем логин и пароль с данными из БД
 async function checkExistUser(req, res, next) {

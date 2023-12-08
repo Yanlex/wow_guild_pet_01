@@ -1,8 +1,8 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import HeaderSocial from '../Social/Social';
-import OurProgress from '../OutProgress/OurProgress';
+import HeaderSocial from '../Social';
+import OurProgress from '../OutProgress';
 
 export default function Header(props: { title: JSX.Element | string; p: JSX.Element | string }) {
 	const { title, p } = props;
@@ -17,7 +17,10 @@ export default function Header(props: { title: JSX.Element | string; p: JSX.Elem
 	return (
 		<header className={`header header_second ${backgoundSize}`}>
 			<video autoPlay loop muted className={`${background}`}>
-				<source src="http://localhost:3000/video/M1QEYAXEAWPX1699388765299.mp4" type="video/mp4" />
+				<source
+					src={`${process.env.BASE_API_URL}/video/M1QEYAXEAWPX1699388765299.mp4`}
+					type="video/mp4"
+				/>
 				Your browser does not support the video tag.
 			</video>
 			<div className="container">

@@ -1,5 +1,6 @@
-const guildData = require('../fetchGuild/fetchGuild');
 const path = require('path');
+const guildData = require('../fetchGuild');
+
 const dbPath = path.resolve(__dirname, '../../../guild.db');
 
 async function updateGuildMemberList() {
@@ -9,7 +10,7 @@ async function updateGuildMemberList() {
 	// соединение
 	const db = new sqlite3.Database(dbPath);
 
-	db.get(`SELECT id FROM guild WHERE name = ?`, [data.name], function (err, row) {
+	db.get(`SELECT id FROM guild WHERE name = ?`, [data.name], (err, row) => {
 		if (err) {
 			return console.log(err.message);
 		}
@@ -18,7 +19,7 @@ async function updateGuildMemberList() {
 			db.run(
 				`UPDATE guild SET faction = ?, region = ?, realm = ?, last_crawled_at = ?, profile_url = ? WHERE name = ?`,
 				[data.faction, data.region, data.realm, data.last_crawled_at, data.profile_url, data.name],
-				function (err) {
+				(err) => {
 					if (err) {
 						return console.log(err.message);
 					}
@@ -30,7 +31,7 @@ async function updateGuildMemberList() {
 			db.run(
 				`INSERT INTO guild (name, faction, region, realm, last_crawled_at, profile_url) VALUES (?, ?, ?, ?, ?, ?)`,
 				[data.name, data.faction, data.region, data.realm, data.last_crawled_at, data.profile_url],
-				function (err) {
+				(err) => {
 					if (err) {
 						return console.log(err.message);
 					}
@@ -45,7 +46,7 @@ async function updateGuildMemberList() {
 		db.get(
 			`SELECT id FROM members WHERE character_name = ?`,
 			[member.character.name],
-			function (err, row) {
+			(err, row) => {
 				if (err) {
 					return console.log(err.message);
 				}
@@ -72,7 +73,7 @@ async function updateGuildMemberList() {
 							member.character.profile_banner,
 							member.character.name,
 						],
-						function (err) {
+						(err) => {
 							if (err) {
 								return console.log(err.message);
 							}
@@ -104,7 +105,7 @@ async function updateGuildMemberList() {
 							member.character.profile_url,
 							member.character.profile_banner,
 						],
-						function (err) {
+						(err) => {
 							if (err) {
 								return console.log(err.message);
 							}

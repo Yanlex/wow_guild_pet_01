@@ -5,8 +5,8 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 module.exports = {
 	entry: {
 		index: path.resolve(__dirname, 'src/index.tsx'),
-		another: path.resolve(__dirname, 'src/RaiderIoApi.tsx'),
-		additional: path.resolve(__dirname, 'src/rioColors.tsx'),
+		// another: path.resolve(__dirname, 'src/RaiderIoApi.tsx'),
+		// additional: path.resolve(__dirname, 'src/rioColors.tsx'),
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
@@ -14,8 +14,8 @@ module.exports = {
 		// assetModuleFilename: "assets/img/[name][ext]",
 		clean: true,
 	},
-	devtool: 'inline-source-map', // devtool: 'inline-source-map' выключать если продакшн!!!
-	mode: 'development', // production or development не забыть выключить new ReactRefreshWebpackPlugin() и devtool: "inline-source-map"
+	// devtool: 'inline-source-map', // devtool: 'inline-source-map' выключать если продакшн!!!
+	mode: 'production', // production or development не забыть выключить new ReactRefreshWebpackPlugin() и devtool: "inline-source-map"
 	module: {
 		rules: [
 			{
@@ -51,7 +51,7 @@ module.exports = {
 		],
 	},
 	resolve: {
-		extensions: ['*', '.js', '.jsx', '.tsx', '.ts'],
+		extensions: [".*",".js",".jsx",".tsx",".ts"],
 	},
 
 	plugins: [
@@ -60,7 +60,7 @@ module.exports = {
 			template: path.resolve(__dirname, './src/template.html'), // шаблон
 			filename: 'index.html', // название выходного файла
 		}),
-		new ReactRefreshWebpackPlugin(), // new ReactRefreshWebpackPlugin() ВЫКЛЮЧИТЬ ЕСЛИ ПРОДАКШН
+		// new ReactRefreshWebpackPlugin(), // new ReactRefreshWebpackPlugin() ВЫКЛЮЧИТЬ ЕСЛИ ПРОДАКШН
 	],
 	devServer: {
 		static: path.resolve(__dirname, 'dist'),
