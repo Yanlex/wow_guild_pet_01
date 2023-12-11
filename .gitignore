@@ -1,3 +1,5 @@
-.vscode
-./FRONT/node_modules
-./SERVER/node_modules
+.vscode/
+FRONT/node_modules
+SERVER/node_modules
+SERVER/db/users.db
+SERVER/db/guild.db
