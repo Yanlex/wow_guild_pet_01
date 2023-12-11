@@ -6,7 +6,7 @@ function FetchGuild() {
 
 	async function fetchData() {
 		try {
-			fetch(`${process.env.REACT_APP_BASE_API_URL}/guild-data`)
+			fetch(`/guild-data`)
 				.then((response) => {
 					if (!response.ok) {
 						throw new Error('Network response was not ok');

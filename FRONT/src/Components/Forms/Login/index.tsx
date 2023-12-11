@@ -11,7 +11,7 @@ export default function LoginForm({ handleClose }) {
 	// Сохранение состояния в LocalStorage
 
 	const onSubmit = (data: any) => {
-		fetch(`${process.env.REACT_APP_BASE_API_URL}/login`, {
+		fetch(`/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

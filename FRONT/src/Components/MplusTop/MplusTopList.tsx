@@ -12,7 +12,7 @@ function MplusTopList({ slice, olstart }: mtopslice) {
 
 	async function fetchData() {
 		try {
-			fetch(`${process.env.REACT_APP_BASE_API_URL}/guild-data`)
+			fetch(`/guild-data`)
 				.then((response) => {
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
@@ -78,9 +78,7 @@ function MplusTopList({ slice, olstart }: mtopslice) {
 						}) => (
 							<li key={id} className="topmplus__row">
 								<img
-									src={`${process.env.REACT_APP_BASE_API_URL}/class/${
-										classIcons[member.class]
-									}.jpg`}
+									src={`/class/${classIcons[member.class]}.jpg`}
 									alt=""
 									className="topmplus__classicon"
 								/>
