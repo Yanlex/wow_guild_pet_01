@@ -1,0 +1,5 @@
+node_modules
+.vscode
+./server/db/auth.db
+./server/db/guild.db
+./server/db/users.db
