@@ -62,20 +62,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 // Фронт
 // Настройка Express для обслуживания статических файлов из папки '/'
-app.use(express.static(path.join(__dirname, "./dist")));
+app.use(express.static(path.join(__dirname, "dist")));
 // Настройка Express для обслуживания статических файлов из папки '/kvd'
-app.use("/kvd", express.static(path.join(__dirname, "./dist/kvd")));
+// app.use("/kvd", express.static(path.join(__dirname, "./dist/kvd")));
 // Устанавливаем путь к папке, содержащей изображения аватарок игровых персонажей
-app.use("/img", express.static(path.join(__dirname, "./dist/kvd/assets/img")));
+// app.use("/img", express.static(path.join(__dirname, "./dist/kvd/assets/img")));
 // Устанавливаем путь к папке, содержащей изображения аватарок игровых персонажей
-app.use("/avatar", express.static(path.join(__dirname, "./assets/avatars")));
+// app.use("/avatar", express.static(path.join(__dirname, "./assets/avatars")));
 // Устанавливаем путь к папке, содержащей классовых изображения
-app.use("/class", express.static(path.join(__dirname, "./assets/class")));
+// app.use("/class", express.static(path.join(__dirname, "./assets/class")));
 // Устанавливаем путь к папке, содержащей изображения аватарок игровых персонажей
-app.use(
-  "/video",
-  express.static(path.join(__dirname, "./dist/kvd/assets/video"))
-);
+// app.use(
+//   "/video",
+//   express.static(path.join(__dirname, "./dist/kvd/assets/video"))
+// );
 // Апи к БД
 // app.use('/createrowdb/:name/:type', require('./db/components/CreateOrUpdateBD/createRowDb'));
 // app.use('/removerowdb/:name', require('./db/components/CreateOrUpdateBD/removeRowDb'));
