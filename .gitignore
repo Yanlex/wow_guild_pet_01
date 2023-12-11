@@ -1,7 +1,0 @@
-.vscode
-node_modules
-./FRONT/node_modules
-./SERVER/node_modules
-./SERVER/db/auth.db
-./SERVER/db/guild.db
-./SERVER/db/users.db
