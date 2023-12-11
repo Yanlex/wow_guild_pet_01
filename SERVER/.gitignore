@@ -1,4 +1,0 @@
-node_modules
-./db/auth.db
-./db/guild.db
-./db/users.db
