@@ -1,3 +1,2 @@
 .vscode
-/FRONT/node_modules/
-/SERVER/node_modules/
+**/node_modules
