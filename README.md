@@ -33,6 +33,9 @@
 
 > npm install
 
+Изменить app.use(cors({ credentials: true, origin: "https://yourDomain/" }));
+Изменить данные в .env
+
 // SERVER/db
 
 > [!IMPORTANT]

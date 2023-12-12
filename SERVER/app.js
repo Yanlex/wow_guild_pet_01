@@ -28,18 +28,18 @@ const mythic_plus_score_dfs3 = require("./db/components/GuildDB/MythicPlusScoreU
 const { getPlayerMythicPlus } = require("./db/components/GuildDB/fetchGuild");
 // checkPlayerGuild
 
-cron.schedule("* 06 * * *", checkPlayerGuild, {
+cron.schedule("08 08 * * *", checkPlayerGuild, {
   scheduled: true,
   timezone: "Europe/Moscow",
 });
 
 // Обновляет данные гильдии ( саму гильдию и мемберов )
-cron.schedule("* 02 * * *", updateGuildMemberList, {
+cron.schedule("02 02 * * *", updateGuildMemberList, {
   scheduled: true,
   timezone: "Europe/Moscow",
 });
 
-cron.schedule("* 04 * * *", mythic_plus_score_dfs3, {
+cron.schedule("01 04 * * *", mythic_plus_score_dfs3, {
   scheduled: true,
   timezone: "Europe/Moscow",
 });
@@ -56,7 +56,7 @@ let redisClient;
 
 // *** APP USE *** ///
 app.use(bodyParser.json({ limit: "10mb" }));
-app.use(cors({ credentials: true }));
+app.use(cors({ credentials: true, origin: "https://yourDomain/" }));
 app.use(cookieParser(cookieSecret));
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
