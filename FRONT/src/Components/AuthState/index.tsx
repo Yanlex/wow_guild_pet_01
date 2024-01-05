@@ -4,7 +4,7 @@ import AuthContext from './AuthContext';
 function AuthProvider({ children }) {
 	async function handleLogout() {
 		try {
-			fetch('/clear-cookie', {
+			fetch('/api/clear-cookie', {
 				method: 'GET',
 				credentials: 'include',
 			})

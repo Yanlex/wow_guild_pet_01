@@ -6,7 +6,7 @@ function FetchGuild() {
 
 	async function fetchData() {
 		try {
-			fetch(`/guild-data`)
+			fetch(`/api/guild-data`)
 				.then((response) => {
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
@@ -70,7 +70,7 @@ function FetchGuild() {
 				.filter((member) => member.mythic_plus_score > 0 && member.player_guild == 'Ключик в дурку')
 				.map((member) => (
 					<div key={member.id} className="card-item">
-						<img src={`/avatars/${member.character_name}.jpg`} className="card-item-img" />
+						<img src={`/api/avatars/${member.character_name}.jpg`} className="card-item-img" />
 						<div className="card-item-div">
 							<div style={{ color: classColors[member.class] }}>
 								<h2>{member.character_name}</h2>

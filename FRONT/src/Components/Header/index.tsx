@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import HeaderSocial from '../Social';
 import OurProgress from '../OutProgress';
@@ -8,13 +8,19 @@ const process = require('process');
 export default function Header(props: { title: JSX.Element | string; p: JSX.Element | string }) {
 	const { title, p } = props;
 	const location = useLocation();
+
 	const background =
 		location.pathname === '/'
 			? 'bg1'
-			: location.pathname === '/guides'
+			: location.pathname === '/guides' || location.pathname === '/amirdrassil/smolderon'
 			? 'display-none'
 			: 'bgDefault';
-	const backgoundSize = location.pathname === '/guides' ? 'header_resize' : 'bgDefault';
+
+	const backgoundSize =
+		location.pathname === '/guides' || location.pathname === '/amirdrassil/smolderon'
+			? 'header_resize'
+			: 'bgDefault';
+
 	return (
 		<header className={`header header_second ${backgoundSize}`}>
 			<video autoPlay loop muted className={`${background}`}>

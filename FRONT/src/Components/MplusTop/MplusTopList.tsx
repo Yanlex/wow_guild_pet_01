@@ -12,7 +12,7 @@ function MplusTopList({ slice, olstart }: mtopslice) {
 
 	async function fetchData() {
 		try {
-			fetch(`/guild-data`)
+			fetch(`/api/guild-data`)
 				.then((response) => {
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
@@ -78,7 +78,7 @@ function MplusTopList({ slice, olstart }: mtopslice) {
 						}) => (
 							<li key={id} className="topmplus__row">
 								<img
-									src={`/class/${classIcons[member.class]}.jpg`}
+									src={`/kvd/assets/class/${classIcons[member.class]}.jpg`}
 									alt=""
 									className="topmplus__classicon"
 								/>

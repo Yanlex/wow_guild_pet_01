@@ -7,6 +7,7 @@ import Footer from './Components/Footer';
 import MplusTop from './Components/MplusTop';
 import AboutGuild from './Components/AboutGuild';
 import Guides from './Components/Guides';
+import Smolderon from 'Components/Guides/Smolderon';
 
 export default function App() {
 	const homePageTitle = (
@@ -42,6 +43,18 @@ export default function App() {
 							/>
 							<main role="main">
 								<Guides />
+							</main>
+							<Footer />
+						</Page>
+					}
+				/>
+				<Route
+					path="/amirdrassil/smolderon"
+					element={
+						<Page>
+							<Header title="ПЕПЛОРОН" p="Контент по боссу, тактики галактики" />
+							<main role="main">
+								<Smolderon />
 							</main>
 							<Footer />
 						</Page>

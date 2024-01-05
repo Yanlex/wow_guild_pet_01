@@ -28,18 +28,18 @@ const mythic_plus_score_dfs3 = require("./db/components/GuildDB/MythicPlusScoreU
 const { getPlayerMythicPlus } = require("./db/components/GuildDB/fetchGuild");
 // checkPlayerGuild
 
-cron.schedule("08 08 * * *", checkPlayerGuild, {
+cron.schedule("36 02 * * *", checkPlayerGuild, {
   scheduled: true,
   timezone: "Europe/Moscow",
 });
 
 // Обновляет данные гильдии ( саму гильдию и мемберов )
-cron.schedule("02 02 * * *", updateGuildMemberList, {
+cron.schedule("51 03 * * *", updateGuildMemberList, {
   scheduled: true,
   timezone: "Europe/Moscow",
 });
 
-cron.schedule("01 04 * * *", mythic_plus_score_dfs3, {
+cron.schedule("53 05 * * *", mythic_plus_score_dfs3, {
   scheduled: true,
   timezone: "Europe/Moscow",
 });
@@ -56,21 +56,21 @@ let redisClient;
 
 // *** APP USE *** ///
 app.use(bodyParser.json({ limit: "10mb" }));
-app.use(cors({ credentials: true, origin: "https://yourDomain/" }));
+app.use(cors({ credentials: true, origin: "https://sanyadev.ru/" }));
 app.use(cookieParser(cookieSecret));
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 // Фронт
 // Настройка Express для обслуживания статических файлов из папки '/'
-app.use(express.static(path.join(__dirname, "dist")));
+// app.use(express.static(path.join(__dirname, "dist")));
 // Настройка Express для обслуживания статических файлов из папки '/kvd'
 // app.use("/kvd", express.static(path.join(__dirname, "./dist/kvd")));
 // Устанавливаем путь к папке, содержащей изображения аватарок игровых персонажей
 // app.use("/img", express.static(path.join(__dirname, "./dist/kvd/assets/img")));
 // Устанавливаем путь к папке, содержащей изображения аватарок игровых персонажей
-app.use("/avatar", express.static(path.join(__dirname, "./assets/avatars")));
+// app.use("/api/avatar", express.static(path.join(__dirname, "./assets/avatars")));
 // Устанавливаем путь к папке, содержащей классовых изображения
-app.use("/class", express.static(path.join(__dirname, "./assets/class")));
+// app.use("/api/class", express.static(path.join(__dirname, "./assets/class")));
 // Устанавливаем путь к папке, содержащей изображения аватарок игровых персонажей
 // app.use(
 //   "/video",
@@ -86,11 +86,11 @@ app.use((err, req, res, next) => {
 });
 // --- APP USE --- ///
 
-app.post("/register", (req, res) => {
+app.post("/api/register", (req, res) => {
   registerUser(req, res);
 });
 
-app.get("/clear-cookie", (request, response) => {
+app.get("/api/clear-cookie", (request, response) => {
   const options = {
     maxAge: 1704085200, // would expire after 15 minutes
     httpOnly: true, // The cookie only accessible by the web server
@@ -102,7 +102,7 @@ app.get("/clear-cookie", (request, response) => {
 });
 
 // Обработчик авторизации пользователя
-app.post("/login", checkExistUser, session, async (req, res, next) => {
+app.post("/api/login", checkExistUser, session, async (req, res, next) => {
   try {
     await loginR(req, res);
   } catch (err) {
@@ -113,7 +113,7 @@ app.post("/login", checkExistUser, session, async (req, res, next) => {
 // app.get('/auth', require('./db/components/AuthDB/Authorization/index.js'));
 
 // проверка авторизации в редисе
-app.get("/redis", async (req, res) => {
+app.get("/api/redis", async (req, res) => {
   try {
     const userData = await redisClient.hGetAll(req.signedCookies.User);
     if (userData.sesionUuid === req.signedCookies.SessionID) {
@@ -128,7 +128,7 @@ app.get("/redis", async (req, res) => {
 });
 
 // Вывод всех строк из таблицы members
-app.get("/guild-data", async (req, res) => {
+app.get("/api/guild-data", async (req, res) => {
   // Выполняем SQL-запрос к базе данных
   db.all("SELECT * FROM members", (err, rows) => {
     if (err) {
@@ -144,28 +144,20 @@ app.get("/guild-data", async (req, res) => {
 });
 
 // Вывод одного игрока, делает запрос к api raider io
-app.get("/member/:name", async (req, res) => {
+app.get("/api/member/:name", async (req, res) => {
   const { name } = req.params;
   const data = await getPlayerMythicPlus(name);
   res.send(data);
 });
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "./dist/index.html"), (err) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-  });
-});
+//app.get("/", (req, res) => {
+//  res.sendFile(path.join(__dirname, "./dist/index.html"), (err) => {
+//    if (err) {
+//      res.status(500).send(err);
+//    }
+//  });
+//});
 
-app.get("/kvd/", (req, res) => {
-  res.setHeader("X-Robots-Tag", "noindex");
-  res.sendFile(path.join(__dirname, "./dist/kvd/"), (err) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-  });
-});
 // Start the server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

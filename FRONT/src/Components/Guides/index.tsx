@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 const classColors: Record<string, string> = {
@@ -189,7 +190,54 @@ export default function Guides() {
 						</section>
 						<section>
 							<h3>РЕЙДЫ</h3>
+							<Link to="/amirdrassil/smolderon">
+								<h2>{`>> ИНФА ПО ПЕПЛОРОНУ <<`}</h2>
+							</Link>
+
 							<ul>
+								<h4>Аддоны</h4>
+								<li>
+									<a
+										href="https://www.curseforge.com/wow/addons/big-wigs"
+										target="_blank"
+										rel="noreferrer"
+									>
+										BigWigs Bossmods
+									</a>
+								</li>
+								<li>
+									<a
+										href="https://www.curseforge.com/wow/addons/elwigo"
+										target="_blank"
+										rel="noreferrer"
+									>
+										ElWigo
+									</a>
+								</li>
+								<li>
+									<a
+										href="https://www.curseforge.com/wow/addons/weakauras-2"
+										target="_blank"
+										rel="noreferrer"
+									>
+										WeakAuras
+									</a>
+								</li>
+								<li>
+									<a
+										href="https://www.curseforge.com/wow/addons/method-raid-tools"
+										target="_blank"
+										rel="noreferrer"
+									>
+										Method Raid Tools
+									</a>
+								</li>
+								<h4>Полезные сайты</h4>
+								<li>
+									<a href="https://www.mythictrap.com/ru" target="_blank" rel="noreferrer">
+										Изучаем тактики - MYTHIC TRAP
+									</a>
+								</li>
 								<li>
 									<a
 										href="https://tacticalairhorse.itch.io/amirdrassil"
@@ -201,9 +249,31 @@ export default function Guides() {
 								</li>
 								<li>
 									<a href="https://www.warcraftlogs.com/" target="_blank" rel="noreferrer">
-										Warcraftlogs
+										Изучаем логи - Warcraftlogs
 									</a>
 								</li>
+								<li>
+									<a href="https://lorrgs.io/" target="_blank" rel="noreferrer">
+										Смотрим где жмут кнопки топы - Lorrgs
+									</a>
+								</li>
+								<li>
+									<a href="https://wowanalyzer.com/" target="_blank" rel="noreferrer">
+										Сравним свои логи с топами - WoWanalyzer
+									</a>
+								</li>
+								<h4>WeakAuras</h4>
+								<li>
+									<a href="https://wago.io/n7l5uN3YM" target="_blank" rel="noreferrer">
+										Kaze MRT/ERT Timers Notifications
+									</a>
+								</li>
+								<li>
+									<a href="https://wago.io/dfraid3" target="_blank" rel="noreferrer">
+										Общая WA на весь рейд
+									</a>
+								</li>
+								<br />
 								<li>
 									<a
 										href="https://www.wowhead.com/ru/item=188152/%D0%BE%D1%81%D0%BA%D0%BE%D0%BB%D0%BE%D0%BA-%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B2%D1%80%D0%B0%D1%82%D0%B0%D0%BC%D0%B8"
@@ -211,22 +281,6 @@ export default function Guides() {
 										rel="noreferrer"
 									>
 										Юзать гейты по бинду
-									</a>
-								</li>
-								<li>
-									<a href="https://www.mythictrap.com/ru" target="_blank" rel="noreferrer">
-										MYTHIC TRAP
-									</a>
-								</li>
-								<li>
-									<a href="https://lorrgs.io/" target="_blank" rel="noreferrer">
-										Lorrgs
-									</a>
-								</li>
-								<br />
-								<li>
-									<a href="https://wago.io/n7l5uN3YM" target="_blank" rel="noreferrer">
-										Kaze MRT/ERT Timers Notifications
 									</a>
 								</li>
 							</ul>

@@ -17,8 +17,8 @@ module.exports = {
 	},
 	output: {
 		path: path.resolve(__dirname, '../SERVER/dist/kvd'),
-		filename: '[name].bundle.js',
-		// assetModuleFilename: 'assets/[hash][ext]',
+		publicPath: '/kvd/',
+		filename: '[name].[contenthash].bundle.js',
 		clean: true,
 	},
 	devtool: 'inline-source-map', // devtool: 'inline-source-map' выключать если продакшн!!!
@@ -84,21 +84,22 @@ module.exports = {
 			patterns: [
 				{ from: './src/assets/video', to: 'assets/video' },
 				{ from: './src/assets/img', to: 'assets/img' },
+				{ from: '../SERVER/assets/class', to: 'assets/class' },
 			],
 		}),
 		new MiniCssExtractPlugin({
-			filename: 'style.css',
-			chunkFilename: '[id].css',
+			filename: 'style.[contenthash].css',
+			chunkFilename: '[id].[contenthash].css',
 		}),
 	],
 	devServer: {
+		historyApiFallback: true,
 		static: {
-			directory: path.resolve(__dirname, './src'),
+			directory: path.resolve(__dirname, '../SERVER/dist/kvd'),
 		},
 		port: 5001, // default is often 8080
 		open: true,
 		hot: true,
 		watchFiles: [path.resolve(__dirname, './src')],
-		historyApiFallback: true,
 	},
 };

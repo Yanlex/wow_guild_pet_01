@@ -58,6 +58,7 @@ pre {
 .guides-content {
 	display: flex;
 	gap: 1rem;
+	flex-wrap: wrap;
 }
 
 .guides-content > div {
